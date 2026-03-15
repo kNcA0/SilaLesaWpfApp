@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="177b8a49d3924ec2a055a1ccfd84bf32" Name="Diagram1">
+        <EntityTypeShape EntityType="CampingBookingDBModel.AppUsers" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.Bookings" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.BookingServices" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.Customers" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.CustomerVisits" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.Roles" Width="1.5" PointX="1.5" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.Services" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.Sites" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CampingBookingDBModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_AppUsers_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_Bookings_AppUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_Bookings_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_Bookings_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_BookingServices_Bookings" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_BookingServices_Services" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_CustomerVisits_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="CampingBookingDBModel.FK_CustomerVisits_Sites" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

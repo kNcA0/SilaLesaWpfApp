@@ -1,0 +1,102 @@
+<Window x:Class="SilaLesaWpfApp.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Пользователь — Сила леса"
+        Height="650" Width="1100"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Margin="10" LastChildFill="False">
+            <TextBlock x:Name="tbHeader" FontWeight="Bold" VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button Content="Выйти" Width="90" Click="BtnLogout_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+        <TabControl Grid.Row="1" Margin="10">
+            <TabItem Header="Новое бронирование">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <GroupBox Header="Клиент и даты">
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <TextBlock Text="Клиент:" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbCustomer" Width="220" Margin="5,0,10,0"/>
+
+                            <TextBlock Text="Заезд:" VerticalAlignment="Center"/>
+                            <DatePicker x:Name="dpIn" Width="130" Margin="5,0,10,0"/>
+
+                            <TextBlock Text="Выезд:" VerticalAlignment="Center"/>
+                            <DatePicker x:Name="dpOut" Width="130" Margin="5,0,10,0"/>
+
+                            <Button Content="Найти места" Width="100" Click="BtnFindSites_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <Grid Grid.Row="1" Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox Header="Доступные места" Margin="0,0,10,0">
+                            <DataGrid x:Name="dgAvailableSites" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" IsReadOnly="True" SelectionMode="Single"/>
+                        </GroupBox>
+
+                        <GroupBox Header="Доп. услуги" Grid.Column="1">
+                            <Grid Margin="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Услуга:" VerticalAlignment="Center"/>
+                                    <ComboBox x:Name="cbService" Width="220" Margin="5,0,0,0"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,8,0,0">
+                                    <TextBlock Text="Количество:" VerticalAlignment="Center"/>
+                                    <TextBox x:Name="tbQty" Width="60" Text="1" Margin="5,0,0,0"/>
+                                    <Button Content="Добавить" Width="80" Margin="10,0,0,0" Click="BtnAddService_Click"/>
+                                    <Button Content="Очистить" Width="80" Margin="5,0,0,0" Click="BtnClearServices_Click"/>
+                                </StackPanel>
+
+                                <DataGrid x:Name="dgSelectedServices" Grid.Row="2" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" IsReadOnly="True" Margin="0,10,0,0"/>
+
+                                <Button Content="Создать бронирование"
+                                        Grid.Row="3"
+                                        Height="32" Width="140"
+                                        HorizontalAlignment="Left"
+                                        Margin="0,10,0,0"
+                                        Click="BtnCreateBooking_Click"/>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+
+                    <TextBlock x:Name="tbUserMsg" Grid.Row="2" Foreground="DarkGreen" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Мои бронирования">
+                <Grid Margin="10">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Content="Обновить" Width="100" Click="BtnRefreshMyBookings_Click"/>
+                        <Button Content="Отменить выбранное" Width="140" Margin="10,0,0,0" Click="BtnCancelBooking_Click"/>
+                    </StackPanel>
+                    <DataGrid x:Name="dgMyBookings" AutoGenerateColumns="True" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" IsReadOnly="True" SelectionMode="Single"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
