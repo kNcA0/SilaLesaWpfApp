@@ -30,20 +30,12 @@ namespace SilaLesaWpfApp
             tbMessage.Text = "";
             try
             {
-                var dt = Db.Query("SELECT RoleName FROM Roles ORDER BY RoleName");
-
-                if (!dt.Columns.Contains("RoleRu"))
-                    dt.Columns.Add("RoleRu", typeof(string));
-
-                foreach (DataRow r in dt.Rows)
-                    r["RoleRu"] = RoleToRu(r["RoleName"].ToString());
-
-                cbRole.ItemsSource = dt.DefaultView;
-                cbRole.DisplayMemberPath = "RoleRu";
+                cbRole.ItemsSource = App.context.Roles;
+                cbRole.DisplayMemberPath = "RoleID";
                 cbRole.SelectedValuePath = "RoleName";
-                cbRole.SelectedIndex = dt.Rows.Count > 0 ? 0 : -1;
+                cbRole.SelectedIndex = 0;
             }
-            catch
+            catch (Exception ex)
             {
                 // fallback (if DB not connected yet)
                 var dt = new DataTable();
@@ -58,13 +50,13 @@ namespace SilaLesaWpfApp
                 cbRole.SelectedValuePath = "RoleName";
                 cbRole.SelectedIndex = 0;
 
-                tbMessage.Text = "База данных не подключена. Проверьте строку подключения в App.config.";
+                tbMessage.Text = "Ошибка: " + ex.Message;
             }
 
             // Demo accounts (from SQL script):
-            // admin / hash_admin_123
-            // moderator / hash_moderator_123
-            // user / hash_user_123
+            // admin / admin123
+            // moderator / moderator_123
+            // user / user_123
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
@@ -83,27 +75,17 @@ namespace SilaLesaWpfApp
 
             try
             {
-                var dt = Db.Query(@"
-SELECT u.UserID, u.Username, r.RoleName
-FROM AppUsers u
-JOIN Roles r ON r.RoleID = u.RoleID
-WHERE u.Username = @u
-  AND u.PasswordHash = @p
-  AND r.RoleName = @r
-  AND u.IsActive = 1;",
-                    new SqlParameter("@u", username),
-                    new SqlParameter("@p", password),
-                    new SqlParameter("@r", role));
+                var user = App.context.AppUsers.FirstOrDefault(u => (u.Username == tbUsername.Text && u.PasswordHash == pbPassword.Password));
 
-                if (dt.Rows.Count == 0)
+                if (user == null)
                 {
                     tbMessage.Text = "Не удалось войти. Проверьте логин/пароль/роль.";
                     return;
                 }
 
-                Session.UserID = Convert.ToInt32(dt.Rows[0]["UserID"]);
-                Session.Username = dt.Rows[0]["Username"].ToString();
-                Session.Role = dt.Rows[0]["RoleName"].ToString();
+                Session.UserID = user.UserID;
+                Session.Username = user.Username;
+                Session.Role = user.Roles;
 
                 Window next;
                 if (Session.Role == "admin")
