@@ -85,7 +85,7 @@ namespace SilaLesaWpfApp
 
                 Session.UserID = user.UserID;
                 Session.Username = user.Username;
-                Session.Role = user.Roles;
+                Session.Role = user.Roles.RoleName;
 
                 Window next;
                 if (Session.Role == "admin")
