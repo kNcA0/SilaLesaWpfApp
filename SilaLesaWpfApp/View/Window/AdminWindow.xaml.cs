@@ -98,8 +98,6 @@ namespace SilaLesaWpfApp
             }
         }
 
-private DataTable _rolesDt;
-
         public AdminWindow()
         {
             InitializeComponent();
@@ -125,15 +123,15 @@ private DataTable _rolesDt;
 
         private void LoadRoles()
         {
-            _rolesDt = Db.Query("SELECT RoleID, RoleName FROM Roles ORDER BY RoleName;");
-            dgRoles.ItemsSource = _rolesDt.DefaultView;
+            dgRoles.ItemsSource = App.context.Roles;
+            dgRoles.DisplayMemberPath = "RoleName";
 
-            cbNewUserRole.ItemsSource = _rolesDt.DefaultView;
+            cbNewUserRole.ItemsSource = App.context.Roles;
             cbNewUserRole.DisplayMemberPath = "RoleName";
             cbNewUserRole.SelectedValuePath = "RoleID";
             if (cbNewUserRole.Items.Count > 0) cbNewUserRole.SelectedIndex = 0;
 
-            cbChangeRole.ItemsSource = _rolesDt.DefaultView;
+            cbChangeRole.ItemsSource = App.context.Roles;
             cbChangeRole.DisplayMemberPath = "RoleName";
             cbChangeRole.SelectedValuePath = "RoleID";
             if (cbChangeRole.Items.Count > 0) cbChangeRole.SelectedIndex = 0;
@@ -141,55 +139,33 @@ private DataTable _rolesDt;
 
         private void LoadUsers()
         {
-            var dt = Db.Query(@"
-SELECT u.UserID, u.Username, r.RoleName, u.IsActive, u.CreatedAt
-FROM AppUsers u
-JOIN Roles r ON r.RoleID = u.RoleID
-ORDER BY u.UserID DESC;");
-            dgUsers.ItemsSource = dt.DefaultView;
+            dgUsers.ItemsSource = App.context.AppUsers;
         }
 
         private void LoadCustomers()
         {
-            var dt = Db.Query("SELECT CustomerID, FullName, Phone, Email, Notes FROM Customers ORDER BY CustomerID DESC;");
-            dgCustomers.ItemsSource = dt.DefaultView;
+            dgCustomers.ItemsSource = App.context.Customers;
         }
 
         private void LoadSites()
         {
-            var dt = Db.Query("SELECT SiteID, SiteCode, SiteName, SiteType, Capacity, PricePerNight, IsActive FROM Sites ORDER BY SiteID DESC;");
-            dgSites.ItemsSource = dt.DefaultView;
+            dgSites.ItemsSource = App.context.Sites;
         }
 
         private void LoadServices()
         {
-            var dt = Db.Query("SELECT ServiceID, ServiceName, ServiceType, PricePerDay, IsActive FROM Services ORDER BY ServiceID DESC;");
-            dgServices.ItemsSource = dt.DefaultView;
+            dgServices.ItemsSource = App.context.Services;
         }
 
         private void LoadBookings()
         {
-            var dt = Db.Query(@"
-SELECT b.BookingID, c.FullName, c.Phone, s.SiteCode, s.SiteName,
-       b.CheckInDate, b.CheckOutDate, b.Status, b.CreatedAt, u.Username AS CreatedBy
-FROM Bookings b
-JOIN Customers c ON c.CustomerID = b.CustomerID
-JOIN Sites s ON s.SiteID = b.SiteID
-JOIN AppUsers u ON u.UserID = b.CreatedByUserID
-ORDER BY b.BookingID DESC;");
-            dgBookings.ItemsSource = dt.DefaultView;
+            dgBookings.ItemsSource = App.context.Bookings;
             cbBookingStatus.SelectedIndex = 0;
         }
 
         private void LoadVisits()
         {
-            var dt = Db.Query(@"
-SELECT v.VisitID, c.FullName, s.SiteCode, s.SiteName, v.VisitStart, v.VisitEnd, v.Notes
-FROM CustomerVisits v
-JOIN Customers c ON c.CustomerID = v.CustomerID
-JOIN Sites s ON s.SiteID = v.SiteID
-ORDER BY v.VisitID DESC;");
-            dgVisits.ItemsSource = dt.DefaultView;
+            dgVisits.ItemsSource = App.context.CustomerVisits;
         }
 
         private void BtnRefreshAll_Click(object sender, RoutedEventArgs e)

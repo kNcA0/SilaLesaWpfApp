@@ -31,9 +31,9 @@
 
                     <GroupBox Header="Добавить роль" Margin="0,0,0,10">
                         <StackPanel Orientation="Horizontal" Margin="10">
-                            <TextBlock Text="Название роли:" Width="80" VerticalAlignment="Center"/>
+                            <TextBlock Text="Название роли:" Width="105" VerticalAlignment="Center"/>
                             <TextBox x:Name="tbNewRole" Width="220" Margin="0,0,10,0"/>
-                            <Button Content="Добавить роль" Width="100" Click="BtnAddRole_Click"/>
+                            <Button Content="Добавить роль" Width="130" Click="BtnAddRole_Click"/>
                         </StackPanel>
                     </GroupBox>
 
@@ -71,9 +71,9 @@
                         <StackPanel Orientation="Horizontal" Margin="10">
                             <TextBlock Text="Новая роль" VerticalAlignment="Center"/>
                             <ComboBox x:Name="cbChangeRole" Width="140" Margin="5,0,10,0"/>
-                            <Button Content="Сменить роль" Width="110" Margin="0,0,10,0" Click="BtnChangeRole_Click"/>
+                            <Button Content="Сменить роль" Width="115" Margin="0,0,10,0" Click="BtnChangeRole_Click"/>
 
-                            <Button Content="Переключить активность" Width="110" Click="BtnToggleActive_Click"/>
+                            <Button Content="Переключить активность" Width="115" Click="BtnToggleActive_Click"/>
                         </StackPanel>
                     </GroupBox>
                 </Grid>

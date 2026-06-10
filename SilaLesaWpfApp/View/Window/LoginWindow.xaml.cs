@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows;
+using System.Linq;
 using SilaLesaWpfApp.Model;
 
 namespace SilaLesaWpfApp
