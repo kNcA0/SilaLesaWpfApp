@@ -17,7 +17,7 @@ namespace SilaLesaWpfApp.Model
                 return cs.ConnectionString;
             }
         }
-
+        
         public static DataTable Query(string sql, params SqlParameter[] parameters)
         {
             var dt = new DataTable();
